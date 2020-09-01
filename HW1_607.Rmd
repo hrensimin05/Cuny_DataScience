@@ -1,0 +1,47 @@
+---
+title: "607_Homework1"
+author: "Dominika Markowska-Desvallons"
+date: "9/1/2020"
+output: html_document
+---
+
+"Higher Rates Of Hate Crimes Are Tied To Income Inequality"
+https://fivethirtyeight.com/features/higher-rates-of-hate-crimes-are-tied-to-income-inequality/
+
+## Overview
+This article describes hate crimes rate in states  before and after election. It is being discussed that states with higher income inequality reports more hate crimes compare to other states with less socioeconomic differences. 
+The data, which the article describes had some limitations, however, the idea of both data set used points similar outcomes what suggests that the finds are strong.
+```{r}
+library(RCurl)
+df <- read.csv("https://raw.githubusercontent.com/hrensimin05/Cuny_DataScience/master/hate_crimes.csv")
+summary(df)
+
+# The main dataset includes varieties of statistics and analytics related to every states like poverty  and 
+# medium income of the state
+# I will create a subset focused on highchool diploma rate vs  median household income and hate crime - simplifying the data set
+
+otherfactors <- subset(df, "share_population_with_high_school_degree" >0.798)
+
+newlist <- c("state","median_household_income","avg_hatecrimes_per_100k_fbi")
+
+newdata <- otherfactors[newlist]
+
+head(newdata)
+
+
+```
+```{r}
+
+attach(newdata)
+ndata<- newdata[order(median_household_income),]
+head(ndata)
+tail(ndata)
+```
+
+
+
+
+----
+## Conclusion
+
+In conclusion, as we could asses from the subset that provided data is strong and shows as correlation between households income and hate crime reported by fbi in our example, where lower median income shows higher average hate crime per 100k.
